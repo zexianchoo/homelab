@@ -1,0 +1,13 @@
+tunnel: {tunnel UUID}
+credentials-file: /path/to/cred/file
+
+ingress:
+  - hostname: '{subdomain}.{domain}'
+    service: http://{local_ip}:{port}
+  - hostname: {subdomain}.{domain}
+    service: http://{local_ip}:"{port}"
+    originRequest:
+      httpHostHeader: {subdomain}.{domain}
+  - hostname: "*.{domain}"
+    service: http://{local_ip}:80
+  - service: http_status:404

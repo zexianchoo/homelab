@@ -1,0 +1,21 @@
+.*
+!/.gitignore
+*.pem
+*.sh
+*.yml
+
+# Ignore all Docker volumes in the project
+# **/data/
+# **/letsencrypt/
+# **/config/
+# db/
+# caddy_data
+# caddystuff
+# webpage
+# logs/
+# uploads
+# sftp_config
+volumes/*
+volumes
+rclone_backup.log
+dump*.sql
