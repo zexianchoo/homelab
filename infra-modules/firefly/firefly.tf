@@ -47,6 +47,7 @@ resource "docker_container" "firefly" {
     host_path      = "${var.volume_path}/firefly/upload"
     container_path = "/var/www/html/storage/upload"
   }
+  depends_on = [docker_container.firefly_db]
 }
 
 resource "docker_image" "firefly_mariadb_img" {
