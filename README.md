@@ -1,11 +1,12 @@
 # Homelab - [Find my website here!](https://seanchoo.top)
 
-## Prerequisitess:
+## Prerequisites:
 1. Terraform: https://developer.hashicorp.com/terraform/install
 2. Terragrunt: https://terragrunt.gruntwork.io/docs/getting-started/install/
 3. Docker: https://docs.docker.com/engine/install/
 4. Cloudflare Tunnels + Zero Trust https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/
-5. Snort (IDP): https://www.snort.org/
+5. Snort (IDPS): https://www.snort.org/
+6. Get a domain name. https://porkbun.com/ has some cheap ones!
 
 # Steps to set up:
 
@@ -46,7 +47,11 @@ sudo terragrunt run-all apply
 cloudflared tunnel --config server_config.yml run <tunnel UUID>
 ```
 
-
+# Word of Caution:
+- Secure all "private" exposed services with MFA - TOTP, Oauth etc...
+- Install an IDPS (intrustion detection prevention system) to sniff out unwanted snooping/intrusions and take action with cloudflare dashboard
+- If possible, host this on a "clean" host machine with no other sensitive data to be compromised
+ 
 # Video Tutorials on Youtube:
 - Coming Soon!
 
