@@ -29,7 +29,7 @@ resource "docker_container" "filestash_private" {
     external = 8335
   }
 
-  user = "root"
+  # user = "root"
   env = [
     "APPLICATION_URL=",
     "CANARY=true",

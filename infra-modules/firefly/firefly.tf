@@ -50,7 +50,7 @@ resource "docker_container" "firefly" {
 }
 
 resource "docker_image" "firefly_mariadb_img" {
-  name = "mariadb:lts"
+  name = "mariadb:11.2"
 }
 resource "docker_container" "firefly_db" {
   name         = "firefly_db"
@@ -58,13 +58,13 @@ resource "docker_container" "firefly_db" {
   hostname     = "db"
   restart      = "always"
   network_mode = "bridge"
-  user = "root"
+  # user = "root"
   networks_advanced {
     name = var.network_name
   }
   volumes {
-    container_path = "/var/lib/mysql"
     host_path      = "${var.volume_path}/firefly/db"
+    container_path = "/var/lib/mysql"
   }
   env   = [for key, value in local.db_envs : "${key}=${value}"]
 }

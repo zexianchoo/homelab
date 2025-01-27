@@ -68,7 +68,7 @@ resource "docker_container" "filestash" {
     internal = 8334
     external = 8334
   }
-  user = "root"
+  # user = "root"
   
   env = [
     "APPLICATION_URL=",

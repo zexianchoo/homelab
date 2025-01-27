@@ -40,7 +40,7 @@ resource "docker_image" "joplin_db" {
 
     volumes {
       # host_path = "${var.volume_path}/joplin/data"
-      volume_path = docker_volume.joplin_db_volume.name
+      volume_name = docker_volume.joplin_db_volume.name
       container_path = "/var/lib/postgresql"
     }    
 }

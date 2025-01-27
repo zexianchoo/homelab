@@ -16,7 +16,7 @@ resource "docker_image" "nextcloud" {
 }
 
 resource "docker_image" "nextcloud_db" {
-  name = "mariadb:lts"
+  name = "mariadb:11.2"
 }
 
 resource "docker_image" "nextcloud_redis" {
@@ -91,7 +91,7 @@ resource "docker_container" "nextcloud" {
     "NEXTCLOUD_TRUSTED_DOMAINS:seanchoo.top nextcloud.seanchoo.top www.nextcloud.seanchoo.top https://nextcloud.seanchoo.top",
     # "OVERWRITEPROTOCOL=https",
   ]
-  user = "root"
+  # user = "root"
   volumes {
     host_path = "${var.volume_path}/nextcloud/nextcloud_data"
     container_path = "/var/www/html"

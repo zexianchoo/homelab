@@ -51,8 +51,11 @@ cloudflared tunnel --config server_config.yml run <tunnel UUID>
 - Secure all "private" exposed services with sensitive data using MFA - TOTP, OIDC etc...
     - An example with immich: https://immich.app/docs/administration/oauth/
     - I did not get authelia to work...
-- Install an IDPS (intrustion detection prevention system) to sniff out unwanted snooping/intrusions and take action with cloudflare dashboard
+- Install an IDPS like snort (intrustion detection prevention system) to sniff out unwanted snooping/intrusions and take action with cloudflare dashboard
 - If possible, host this on a "clean" host machine with no other sensitive data to be compromised
+
+
+- There are many terragrunt.hcl in infra-live which I commented out because I just found better apps (e.g. syncthing, donetick) or did not like the security vulnerability (e.g. watchtower). You can still uncomment the terragrunt.hcl, and ensure *.tf infra-modules are uncommented and it should work!
  
 # Video Tutorials on Youtube:
 - Coming Soon!
