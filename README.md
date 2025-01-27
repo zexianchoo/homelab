@@ -48,7 +48,9 @@ cloudflared tunnel --config server_config.yml run <tunnel UUID>
 ```
 
 # Word of Caution:
-- Secure all "private" exposed services with MFA - TOTP, Oauth etc...
+- Secure all "private" exposed services with sensitive data using MFA - TOTP, OIDC etc...
+    - An example with immich: https://immich.app/docs/administration/oauth/
+    - I did not get authelia to work...
 - Install an IDPS (intrustion detection prevention system) to sniff out unwanted snooping/intrusions and take action with cloudflare dashboard
 - If possible, host this on a "clean" host machine with no other sensitive data to be compromised
  
