@@ -1,0 +1,4 @@
+project_name: "homelab"
+domain_name: <your_domain>
+volume_path: "/absolute/path/to/volumes/because, the executed code will actually be located at .terragrunt-cache. if we use terragrunt run-all apply, which may not be the same as the relative path you use here"
+module_path: "/absolute/path/to/infra-modules/because, the executed code will actually be located at .terragrunt-cache. if we use terragrunt run-all apply, which may not be the same as the relative path you use here"

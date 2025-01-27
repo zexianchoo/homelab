@@ -19,3 +19,4 @@ volumes/*
 volumes
 rclone_backup.log
 dump*.sql
+!*.example
