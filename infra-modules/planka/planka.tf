@@ -15,8 +15,13 @@ resource "docker_volume" "planka_db_data" {
   name = "planka_db_data"
 }
 
-resource "docker_image" "planka" {
+data "docker_registry_image" "planka" {
   name = "ghcr.io/plankanban/planka:latest"
+}
+
+resource "docker_image" "planka" {
+  name          = data.docker_registry_image.planka.name
+  pull_triggers = [data.docker_registry_image.planka.sha256_digest]
 }
 
 resource "docker_image" "planka_db" {

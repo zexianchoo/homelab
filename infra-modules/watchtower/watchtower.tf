@@ -24,6 +24,7 @@ resource "docker_container" "watchtower" {
   volumes {
     host_path = "/var/run/docker.sock"
     container_path = "/var/run/docker.sock"
+    read_only = true
   }    
 
   command = ["--cleanup", "--interval", "86400"]

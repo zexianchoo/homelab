@@ -5,21 +5,15 @@
 *.yml
 
 # Ignore all Docker volumes in the project
-# **/data/
-# **/letsencrypt/
-# **/config/
-# db/
-# caddy_data
-# caddystuff
-# webpage
-# logs/
-# uploads
-# sftp_config
 volumes/*
 volumes
+
+# ignore the backups
 rclone_backup.log
 dump*.sql
 !*.example
+
+# ignore own rclone backup script to backblaze
 rclone.conf
 infra-modules/rclone-cron/
 infra-live/rclone-cron/
