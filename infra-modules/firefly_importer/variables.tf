@@ -8,33 +8,27 @@ variable "domain_name" {
   type        = string
 }
 
-variable "module_path" {
-  description = "module_path"
-  type        = string
-}
-
 variable "volume_path" {
   description = "Path to bind mounts of docker containers"
   type        = string
 }
 
-variable "immich_db_name" {
+variable "firefly_random_root_password" {
+  description = "module parent dir path"
   type        = string
 }
 
-variable "immich_db_user" {
+variable "firefly_mysql_user" {
+  description = "module parent dir path"
   type        = string
 }
 
-variable "immich_db_pass" {
+variable "firefly_mysql_password" {
+  description = "module parent dir path"
   type        = string
 }
 
-variable "immich_db_host" {
-  type        = string
-}
-
-variable "immich_mnt_pt" {
-  description = "mount path for pictures of immich"
+variable "firefly_mysql_database" {
+  description = "module parent dir path"
   type        = string
 }

@@ -20,3 +20,6 @@ volumes
 rclone_backup.log
 dump*.sql
 !*.example
+rclone.conf
+infra-modules/rclone-cron/
+infra-live/rclone-cron/

@@ -19,4 +19,9 @@ inputs = {
   domain_name = local.global_vars.domain_name
   volume_path = local.global_vars.volume_path
   module_path = local.global_vars.module_path
+
+  # firefly_random_root_password = local.env_vars.FIREFLY_IMPORTER_MYSQL_RANDOM_ROOT_PASSWORD
+  # firefly_mysql_user = local.env_vars.FIREFLY_IMPORTER_MYSQL_USER
+  # firefly_mysql_password = local.env_vars.FIREFLY_IMPORTER_MYSQL_PASSWORD
+  # firefly_mysql_database = local.env_vars.FIREFLY_IMPORTER_MYSQL_DATABASE
 }

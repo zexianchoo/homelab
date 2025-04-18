@@ -16,7 +16,7 @@ resource "docker_volume" "planka_db_data" {
 }
 
 resource "docker_image" "planka" {
-  name = "ghcr.io/plankanban/planka:1.24.3"
+  name = "ghcr.io/plankanban/planka:latest"
 }
 
 resource "docker_image" "planka_db" {
@@ -81,8 +81,8 @@ resource "docker_container" "planka_db" {
   ]
 
   volumes {
-      # host_path = "${var.volume_path}/planka/data"
-      volume_name = docker_volume.planka_db_data.name
+      host_path = "${var.volume_path}/planka/data"
+      # volume_name = docker_volume.planka_db_data.name
       container_path = "/var/lib/postgresql/data"
   } 
   

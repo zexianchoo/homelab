@@ -9,6 +9,11 @@ terraform {
 
 resource "docker_volume" "joplin_db_volume" {
   name = "joplin_db_data"
+
+  # ensure persistence of joplin data
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 provider "docker" {
@@ -32,15 +37,22 @@ resource "docker_image" "joplin_db" {
     networks_advanced {
       name = var.network_name
     }
+
+    ports {
+      internal = 5432
+      external = 22301
+    }
+
     env = [
       "POSTGRES_PASSWORD=${var.joplin_db_password}",
       "POSTGRES_USER=${var.joplin_db_user}",
       "POSTGRES_DB=${var.joplin_db_database}",
+      "PGPORT=22301"
     ]
 
     volumes {
-      # host_path = "${var.volume_path}/joplin/data"
-      volume_name = docker_volume.joplin_db_volume.name
+      host_path = "${var.volume_path}/joplin/data"
+      # volume_name = docker_volume.joplin_db_volume.name
       container_path = "/var/lib/postgresql"
     }    
 }
@@ -75,7 +87,7 @@ resource "docker_container" "joplin" {
     "POSTGRES_PASSWORD=${var.joplin_db_password}",
     "POSTGRES_DATABASE=${var.joplin_db_database}",
     "POSTGRES_USER=${var.joplin_db_user}",
-    "POSTGRES_PORT=5432",
+    "POSTGRES_PORT=22301",
     "POSTGRES_HOST=joplin_db",
   ]
 

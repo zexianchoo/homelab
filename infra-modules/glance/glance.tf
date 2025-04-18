@@ -21,7 +21,7 @@ resource "docker_container" "glance" {
   env = [
     "PUID=1000",
     "PGID=1000",
-    "TZ=Etc/UTC"
+    "TZ=America/Chicago"
   ]
 
   networks_advanced {
@@ -45,10 +45,10 @@ resource "docker_container" "glance" {
 
   # dns = []
   # domainname = ""
-
+  
   volumes {
-    host_path = "${var.volume_path}/glance/glance.yml"
-    container_path = "/app/glance.yml"
+    host_path = "${var.volume_path}/glance/config"
+    container_path = "/app/config"
   }  
 
   volumes {

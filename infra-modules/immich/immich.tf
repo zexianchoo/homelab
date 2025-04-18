@@ -20,19 +20,14 @@ resource "docker_image" "immich_server" {
 }
 
 
-
 resource "docker_container" "immich_server" {
   name  = "immich_server"
   image = docker_image.immich_server.image_id
   volumes {
-    # host_path = "${var.volume_path}/immich/library"
-    host_path = "/mnt/windows/Users/kai10/Desktop/Photos/library"
+    host_path = "${var.immich_mnt_pt}"
     container_path = "/usr/src/app/upload"
   }
-#   volumes {
-#     container_path = "/usr/src/app/upload"
-#     read_only = true
-#   }
+
   volumes {
     volume_name    = "/etc/localtime"
     container_path = "/etc/localtime"
@@ -40,6 +35,7 @@ resource "docker_container" "immich_server" {
   }
 
   env = [for key, value in local.envs : "${key}=${value}"]
+
   ports {
     internal = 2283
     external = 2283
@@ -66,6 +62,10 @@ resource "docker_container" "immich_machine_learning" {
   network_mode = "bridge"
   networks_advanced {
     name = var.network_name
+  }
+  ports {
+    internal = 3003
+    external = 3003
   }
   env = [for key, value in local.envs : "${key}=${value}"]
   restart = "unless-stopped"

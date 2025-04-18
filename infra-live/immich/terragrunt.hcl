@@ -25,4 +25,5 @@ inputs = {
   immich_db_name = local.env_vars.IMMICH_DB_NAME
   immich_db_user = local.env_vars.IMMICH_DB_USER
   immich_db_host = local.env_vars.IMMICH_DB_HOST
+  immich_mnt_pt = local.env_vars.IMMICH_PHOTO_MNT_POINT
 }

@@ -25,4 +25,6 @@ resource "docker_container" "watchtower" {
     host_path = "/var/run/docker.sock"
     container_path = "/var/run/docker.sock"
   }    
+
+  command = ["--cleanup", "--interval", "86400"]
 }
