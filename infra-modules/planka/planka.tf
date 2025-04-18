@@ -40,7 +40,7 @@ resource "docker_container" "planka" {
 
   ports {
     internal = 1337
-    external = 3000
+    external = 3001
   }
 
   env = [

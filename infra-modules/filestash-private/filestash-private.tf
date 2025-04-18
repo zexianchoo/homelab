@@ -11,9 +11,14 @@ provider "docker" {
   host = "unix:///var/run/docker.sock"
 }
 
-# resource "docker_image" "filestash_private" {
-#   name = "machines/filestash:latest"
-# }
+data "docker_registry_image" "filestash_private" {
+  name = "machines/filestash:latest"
+}
+
+resource "docker_image" "filestash_private" {
+  name          = data.docker_registry_image.filestash_private.name
+  pull_triggers = [data.docker_registry_image.filestash_private.sha256_digest]
+}
 
 # resource "docker_image" "sftp-server" {
 #   name = "atmoz/sftp"
@@ -21,7 +26,7 @@ provider "docker" {
 
 resource "docker_container" "filestash_private" {
   name  = "filestash_private"
-  image = "machines/filestash:latest"
+  image = docker_image.filestash_private.image_id
 
   restart = "unless-stopped"
   ports {
