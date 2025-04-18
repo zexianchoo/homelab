@@ -11,16 +11,34 @@ provider "docker" {
   host = "unix:///var/run/docker.sock"
 }
 
-resource "docker_image" "nextcloud" {
+
+data "docker_registry_image" "nextcloud" {
   name = "nextcloud:latest"
 }
 
+resource "docker_image" "nextcloud" {
+  name          = data.docker_registry_image.nextcloud.name
+  pull_triggers = [data.docker_registry_image.nextcloud.sha256_digest]
+}
+
+data "docker_registry_image" "nextcloud_db" {
+  name = "public.ecr.aws/docker/library/mariadb:latest"
+  # name = "mariadb:latest"
+}
+
 resource "docker_image" "nextcloud_db" {
-  name = "mariadb:11.2"
+  name          = data.docker_registry_image.nextcloud_db.name
+  pull_triggers = [data.docker_registry_image.nextcloud_db.sha256_digest]
+}
+
+
+data "docker_registry_image" "nextcloud_redis" {
+  name = "redis:latest"
 }
 
 resource "docker_image" "nextcloud_redis" {
-  name = "redis"
+  name          = data.docker_registry_image.nextcloud_redis.name
+  pull_triggers = [data.docker_registry_image.nextcloud_redis.sha256_digest]
 }
 
 resource "docker_container" "nextcloud_db" {
@@ -64,6 +82,10 @@ resource "docker_container" "nextcloud_redis" {
     host_path = "${var.volume_path}/nextcloud/nextcloud_redis"
     container_path = "/data"
   }    
+
+  depends_on = [
+    docker_container.nextcloud_db,
+  ]
 }
 
 resource "docker_container" "nextcloud" {

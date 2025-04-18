@@ -24,37 +24,43 @@ resource "docker_image" "joplin" {
   name = "joplin/server:latest"
 }
 
-resource "docker_image" "joplin_db" {
-  name = "postgres:16"
+
+data "docker_registry_image" "joplin_db" {
+  name = "postgres:latest"
 }
 
-  resource "docker_container" "joplin_db" {
-    name  = "joplin_db"
-    image = docker_image.joplin_db.image_id
+resource "docker_image" "joplin_db" {
+  name          = data.docker_registry_image.joplin_db.name
+  pull_triggers = [data.docker_registry_image.joplin_db.sha256_digest]
+}
 
-    restart = "unless-stopped"
-    network_mode = "bridge"
-    networks_advanced {
-      name = var.network_name
-    }
+resource "docker_container" "joplin_db" {
+  name  = "joplin_db"
+  image = docker_image.joplin_db.image_id
 
-    ports {
-      internal = 5432
-      external = 22301
-    }
+  restart = "unless-stopped"
+  network_mode = "bridge"
+  networks_advanced {
+    name = var.network_name
+  }
 
-    env = [
-      "POSTGRES_PASSWORD=${var.joplin_db_password}",
-      "POSTGRES_USER=${var.joplin_db_user}",
-      "POSTGRES_DB=${var.joplin_db_database}",
-      "PGPORT=22301"
-    ]
+  ports {
+    internal = 5432
+    external = 22301
+  }
 
-    volumes {
-      host_path = "${var.volume_path}/joplin/data"
-      # volume_name = docker_volume.joplin_db_volume.name
-      container_path = "/var/lib/postgresql"
-    }    
+  env = [
+    "POSTGRES_PASSWORD=${var.joplin_db_password}",
+    "POSTGRES_USER=${var.joplin_db_user}",
+    "POSTGRES_DB=${var.joplin_db_database}",
+    "PGPORT=22301"
+  ]
+
+  volumes {
+    host_path = "${var.volume_path}/joplin/data"
+    # volume_name = docker_volume.joplin_db_volume.name
+    container_path = "/var/lib/postgresql"
+  }    
 }
 
 resource "docker_container" "joplin" {

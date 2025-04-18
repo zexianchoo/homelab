@@ -11,8 +11,13 @@ provider "docker" {
   host = "unix:///var/run/docker.sock"
 }
 
+data "docker_registry_image" "dashy" {
+  name = "lissy93/dashy:latest"
+}
+
 resource "docker_image" "dashy" {
-  name = "lissy93/dashy:release-3.1.1"
+  name          = data.docker_registry_image.dashy.name
+  pull_triggers = [data.docker_registry_image.dashy.sha256_digest]
 }
 
 resource "docker_container" "dashy" {

@@ -11,8 +11,13 @@ provider "docker" {
   host = "unix:///var/run/docker.sock"
 }
 
-resource "docker_image" "glance" {
+data "docker_registry_image" "glance" {
   name = "glanceapp/glance"
+}
+
+resource "docker_image" "glance" {
+  name          = data.docker_registry_image.glance.name
+  pull_triggers = [data.docker_registry_image.glance.sha256_digest]
 }
 
 resource "docker_container" "glance" {

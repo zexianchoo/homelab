@@ -11,8 +11,13 @@ provider "docker" {
   host = "unix:///var/run/docker.sock"
 }
 
-resource "docker_image" "filestash" {
+data "docker_registry_image" "filestash" {
   name = "machines/filestash:latest"
+}
+
+resource "docker_image" "filestash" {
+  name          = data.docker_registry_image.filestash.name
+  pull_triggers = [data.docker_registry_image.filestash.sha256_digest]
 }
 
 resource "docker_image" "sftp-server" {

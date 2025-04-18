@@ -16,9 +16,15 @@ provider "docker" {
   host = "unix:///var/run/docker.sock"
 }
 
-resource "docker_image" "firefly" {
+data "docker_registry_image" "firefly" {
   name = "fireflyiii/core:latest"
 }
+
+resource "docker_image" "firefly" {
+  name          = data.docker_registry_image.firefly.name
+  pull_triggers = [data.docker_registry_image.firefly.sha256_digest]
+}
+
 
 resource "docker_container" "firefly" {
   name  = "firefly"
@@ -51,12 +57,19 @@ resource "docker_container" "firefly" {
   depends_on = [docker_container.firefly_db]
 }
 
-resource "docker_image" "firefly_mariadb_img" {
-  name = "mariadb:11.2"
+data "docker_registry_image" "firefly_db" {
+  name = "public.ecr.aws/docker/library/mariadb:latest"
+  # name = "mariadb:latest"
 }
+
+resource "docker_image" "firefly_db" {
+  name          = data.docker_registry_image.firefly_db.name
+  pull_triggers = [data.docker_registry_image.firefly_db.sha256_digest]
+}
+
 resource "docker_container" "firefly_db" {
   name         = "firefly_db"
-  image        = docker_image.firefly_mariadb_img.image_id
+  image        = docker_image.firefly_db.image_id
   hostname     = "db"
   restart      = "always"
   network_mode = "bridge"
