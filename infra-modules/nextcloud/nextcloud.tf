@@ -110,8 +110,8 @@ resource "docker_container" "nextcloud" {
     "MYSQL_DATABASE=${var.nextcloud_db_database}",
     "MYSQL_USER=${var.nextcloud_db_user}",
     "REDIS_HOST=nextcloud_redis",
-    "NEXTCLOUD_TRUSTED_DOMAINS:seanchoo.top nextcloud.seanchoo.top www.nextcloud.seanchoo.top https://nextcloud.seanchoo.top",
-    # "OVERWRITEPROTOCOL=https",
+    "TRUSTED_PROXIES=0.0.0.0",
+    "OVERWRITEPROTOCOL=https"
   ]
   # user = "root"
   volumes {
