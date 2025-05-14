@@ -60,4 +60,5 @@ cloudflared tunnel --config server_config.yml run <tunnel UUID>
 # Video Tutorials on Youtube:
 - Coming Soon!
 
+TODO: update with gnupg instructions
 

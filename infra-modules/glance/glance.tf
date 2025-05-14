@@ -3,12 +3,18 @@ terraform {
     docker = {
       source  = "kreuzwerker/docker"
       version = "~> 3.0"
+
     }
   }
 }
 
 provider "docker" {
   host = "unix:///var/run/docker.sock"
+  registry_auth {
+    address   = "registry-1.docker.io"
+    username  = var.dockerhub_user
+    password  = var.dockerhub_pass
+  }
 }
 
 data "docker_registry_image" "glance" {
@@ -47,9 +53,6 @@ resource "docker_container" "glance" {
     timeout  = "10s"
     retries  = 3
   }
-
-  # dns = []
-  # domainname = ""
   
   volumes {
     host_path = "${var.volume_path}/glance/config"

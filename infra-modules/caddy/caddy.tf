@@ -43,7 +43,6 @@ resource "docker_container" "caddy" {
     protocol = "udp"
   }
 
-  network_mode = "bridge"
   healthcheck {
     test     = ["CMD", "curl", "-f", "http://localhost:80"]
     interval = "30s"
@@ -51,6 +50,7 @@ resource "docker_container" "caddy" {
     retries  = 3
   }
 
+  network_mode = "bridge"
   networks_advanced {
     name = var.network_name
   }

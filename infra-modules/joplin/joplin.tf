@@ -11,9 +11,9 @@ resource "docker_volume" "joplin_db_volume" {
   name = "joplin_db_data"
 
   # ensure persistence of joplin data
-  lifecycle {
-    prevent_destroy = true
-  }
+  # lifecycle {
+  #   prevent_destroy = true
+  # }
 }
 
 provider "docker" {

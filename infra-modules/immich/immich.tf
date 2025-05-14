@@ -67,6 +67,7 @@ resource "docker_container" "immich_machine_learning" {
     internal = 3003
     external = 3003
   }
+
   env = [for key, value in local.envs : "${key}=${value}"]
   restart = "unless-stopped"
 }

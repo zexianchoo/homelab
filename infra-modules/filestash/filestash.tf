@@ -89,7 +89,8 @@ resource "docker_container" "filestash" {
   }
 
   volumes { 
-    host_path = "${var.volume_path}/filestash/data"
+    # host_path = "${var.volume_path}/filestash/data"
+    host_path = "/mnt/windows/Users/kai10/Desktop/filestash/data"
     container_path = "/app/data/state/"
   }
 
