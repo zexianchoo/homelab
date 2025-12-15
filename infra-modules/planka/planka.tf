@@ -25,7 +25,7 @@ resource "docker_image" "planka" {
 }
 
 resource "docker_image" "planka_db" {
-  name = "postgres:16-alpine"
+  name = "postgres:18-alpine"
 }
 
 resource "docker_container" "planka" {
