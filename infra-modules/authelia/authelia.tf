@@ -20,7 +20,7 @@ resource "docker_image" "redis_image" {
 }
 
 resource "docker_image" "postgres_image" {
-  name = "docker.io/library/postgres:16-alpine"
+  name = "docker.io/library/postgres:18-alpine"
 }
 
 resource "docker_volume" "database" {
