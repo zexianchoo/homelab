@@ -73,7 +73,7 @@ resource "docker_container" "immich_machine_learning" {
 }
 
 resource "docker_image" "immich_redis" {
-  name = "docker.io/redis:6.2-alpine@sha256:905c4ee67b8e0aa955331960d2aa745781e6bd89afc44a8584bfd13bc890f0ae"
+  name = "docker.io/redis:8.6-alpine@sha256:c5e375abb885e6b2021c0377879e4890bf76f9065b8922ffc113f2b226b9fc17"
 }
 
 resource "docker_container" "immich_redis" {
